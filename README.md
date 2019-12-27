@@ -1,6 +1,14 @@
 # aws-dynamic-dns
 Dynamic DNS container for updating AWS Route 53
 
+## Dockerhub Repository
+
+A publicly available image is available on DockerHub as [sesopenko/aws-dynamic-dns](https://hub.docker.com/r/sesopenko/aws-dynamic-dns).
+
+```bash
+docker pull sesopenko/aws-dynamic-dns
+```
+
 ## AWS IAM Policy
 
 Create an IAM user with restricted access to Route53.  Do not use an administrator user!

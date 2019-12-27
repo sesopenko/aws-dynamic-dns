@@ -6,4 +6,4 @@ docker run -e ZONEID=YOUR_ZONE_ID \
   -e AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY \
   -e TTL=300 \
   -e INTERVAL_MINUTES=30 \
-  -t aws-dynamic-dns
+  -d sesopenko/aws-dynamic-dns:latest

@@ -1,17 +1,10 @@
-# aws-dynamic-dns
-Dynamic DNS container for updating AWS Route 53
+# What is sesopenko/aws-dynamic-dns
 
-## Dockerhub Repository
+Route53 is a managed DNS service from AWS. This container makes it easy to update Route53 recordsets for a machine which has a dynamic IP address.
 
-A publicly available image is available on DockerHub as [sesopenko/aws-dynamic-dns](https://hub.docker.com/r/sesopenko/aws-dynamic-dns).
+## Example AWS IAM Policy
 
-```bash
-docker pull sesopenko/aws-dynamic-dns
-```
-
-## AWS IAM Policy
-
-Create an IAM user with restricted access to Route53.  Do not use an administrator user!
+It's advised that a policy is created specifically for managing the hosted zone.
 
 Here's an example policy:
 
@@ -29,13 +22,19 @@ Here's an example policy:
 }
 ```
 
-## Build Container:
+
+## How to use the image
+
+### Downloading an aws-dynamic-dns image
 
 ```bash
-docker build -t aws-dynamic-dns .
+docker pull sesopenko/aws-dynamic-dns:latest
 ```
 
-## Run Container:
+### Starting an aws-dynamic-dns instance
+
+The image will poll [OpenDNS](https://www.opendns.com/) to get the public IP of the host, from the perspective of OpenDNS.  If it sees a change it will update the configured record on Route53.
+
 ```bash
 docker run \
   -e ZONEID='enter zone id here' \
@@ -44,5 +43,14 @@ docker run \
   -e INTERVAL_MINUTES=30
   -e AWS_ACCESS_KEY_ID="your access key" \
   -e AWS_SECRET_ACCESS_KEY="your secret key" \
-  -t aws-dynamic-dns
+  -d sesopenko/aws-dynamic-dns:latest
 ```
+
+* ZONEID is your AWS hosted zone which contains the DNS record to be updated.
+* RECORDSET is the dns hostname to be updated.
+* TTL is the DNS time-to-live expiration of the recordset.
+* INTERVAL_MINUTES is how frequently the check will be performed.
+* AWS_ACCESS_KEY_ID is the AWS IAM access key required to connect to AWS.  Keep this secure, using a secrets system.
+* AWS_SECRET_ACCESS_KEY is the AWS IAM secret access key required to connect to AWS.
+
+It's recommended that you keep your secret keys secure using a "secrets" system.  Kubernetes supports secrets which can be passed down as environment variables.  Docker for Enterprise has a similar solution.

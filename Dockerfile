@@ -1,4 +1,11 @@
-FROM archlinux:latest
+FROM node
 
-RUN pacman -Sy python-pip --noconfirm
-RUN pip install awscli
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+COPY index.js ./
+COPY ./app ./app
+
+RUN npm install
+
+CMD [ "node", "index.js" ]

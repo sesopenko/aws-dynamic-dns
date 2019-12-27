@@ -1,0 +1,22 @@
+{
+  "name": "aws-dynamic-dns",
+  "version": "1.0.0",
+  "description": "Dynamic DNS updating for AWS Route 53",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sesopenko/aws-dynamic-dns.git"
+  },
+  "author": "Sean Esopenko",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/sesopenko/aws-dynamic-dns/issues"
+  },
+  "homepage": "https://github.com/sesopenko/aws-dynamic-dns#readme",
+  "dependencies": {
+    "aws-sdk": "^2.596.0"
+  }
+}
